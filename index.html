@@ -545,6 +545,130 @@
 </tr>
 </tbody></table>
 
+<h2 id="part-6542acb2a46">推荐</h2>
+<pre class="highlight ruby tab-ruby"><code>
+<span class="n">content</span> <span class="o">=</span> <span class="no">RestClient</span><span class="p">.</span><span class="nf">get</span> <span class="s1">'https://example.com/v1/books/1dilvtkvvjh4g/recommended'</span>
+</code></pre><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1dilvtkvvjh4g"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"异鬼记"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"author_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"极之光"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"category_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"其它"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"chapters_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">727</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"cache_tags"</span><span class="p">:</span><span class="w"> </span><span class="s2">"玄幻奇幻"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"words"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"cover"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://statics.zhuishushenqi.com/agent/http://wap.cmread.com/r/cover_file/0252/600470252/20160115180341/cover180240.jpg"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"last_parsed_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-03-28T17:19:28.000+08:00"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"last_updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-03-28T17:19:28.000+08:00"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"一个刚刚凝结鬼体的天鬼，被迫自爆鬼元婴，重回魂魄。魂魄在快要消散的时候，进入一个被雷电击中的躯体，成为一个介乎元神与鬼魂的特殊存在。由于躯体灵根资质薄弱，又是雷..."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"last_chapter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"第九百三十七章 答应双方交易"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+
+        </span><span class="err">...</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>当前书的明细信息（目前内容同列表）</p>
+
+<h3 id="part-6542ac978b5">接口</h3>
+
+<p>/v1/books/{id}/recommended</p>
+
+<h3 id="part-65428733c66">参数</h3>
+
+<table><thead>
+<tr>
+<th>名称</th>
+<th>是否必须</th>
+<th>默认</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>size</td>
+<td>false</td>
+<td>6</td>
+<td>推荐数量，默认6本</td>
+</tr>
+</tbody></table>
+
+<h3 id="part-65432e129be">返回</h3>
+
+<table><thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data</td>
+<td>数据信息</td>
+</tr>
+<tr>
+<td>meta</td>
+<td>元数据信息</td>
+</tr>
+<tr>
+<td>id</td>
+<td>书 ID</td>
+</tr>
+<tr>
+<td>name</td>
+<td>书名</td>
+</tr>
+<tr>
+<td>author_name</td>
+<td>作者名</td>
+</tr>
+<tr>
+<td>category_name</td>
+<td>分类名</td>
+</tr>
+<tr>
+<td>chapters_count</td>
+<td>暂时作废</td>
+</tr>
+<tr>
+<td>cache_tags</td>
+<td>标签</td>
+</tr>
+<tr>
+<td>words</td>
+<td>暂时作废</td>
+</tr>
+<tr>
+<td>cover</td>
+<td>封面</td>
+</tr>
+<tr>
+<td>last_parsed_at</td>
+<td>最后更新时间（抓取或解析）</td>
+</tr>
+<tr>
+<td>description</td>
+<td>书描述</td>
+</tr>
+<tr>
+<td>last_chapter</td>
+<td>最后章节，暂时作废</td>
+</tr>
+<tr>
+<td>code</td>
+<td>执行状态码，10000 为成功执行</td>
+</tr>
+<tr>
+<td>message</td>
+<td>执行状态说明</td>
+</tr>
+</tbody></table>
+
 <h2 id="part-6542929db38">书源</h2>
 <pre class="highlight ruby tab-ruby"><code>
 <span class="n">content</span> <span class="o">=</span> <span class="no">RestClient</span><span class="p">.</span><span class="nf">get</span> <span class="s1">'https://example.com/v1/books/1dilvtkvvjh4g/source'</span>
