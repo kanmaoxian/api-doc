@@ -168,6 +168,75 @@ code|执行状态码，10000 为成功执行
 message|执行状态说明
 
 
+## 推荐
+
+```ruby
+
+content = RestClient.get 'https://example.com/v1/books/1dilvtkvvjh4g/recommended'
+```
+
+```json
+
+{
+    "data": {
+        "id": "1dilvtkvvjh4g",
+        "name": "异鬼记",
+        "author_name": "极之光",
+        "category_name": "其它",
+        "chapters_count": 727,
+        "cache_tags": "玄幻奇幻",
+        "words": null,
+        "cover": "http://statics.zhuishushenqi.com/agent/http://wap.cmread.com/r/cover_file/0252/600470252/20160115180341/cover180240.jpg",
+        "last_parsed_at": "2017-03-28T17:19:28.000+08:00",
+        "last_updated_at": "2017-03-28T17:19:28.000+08:00",
+        "description": "一个刚刚凝结鬼体的天鬼，被迫自爆鬼元婴，重回魂魄。魂魄在快要消散的时候，进入一个被雷电击中的躯体，成为一个介乎元神与鬼魂的特殊存在。由于躯体灵根资质薄弱，又是雷...",
+        "last_chapter": {
+            "updated_at": null,
+            "title": "第九百三十七章 答应双方交易"
+        },
+
+        ...
+    },
+    "meta": {
+        "code": 10000,
+        "message": "Success"
+    }
+}
+```
+
+当前书的明细信息（目前内容同列表）
+
+### 接口
+
+/v1/books/{id}/recommended
+
+### 参数
+
+名称 | 是否必须| 默认 | 描述
+--------- | -------| ------- | -----------
+size|false|6|推荐数量，默认6本
+
+### 返回
+
+名称 | 描述
+--------- | -------
+data|数据信息
+meta|元数据信息
+id|书 ID
+name|书名
+author_name|作者名
+category_name|分类名
+chapters_count|暂时作废
+cache_tags|标签
+words|暂时作废
+cover|封面
+last_parsed_at|最后更新时间（抓取或解析）
+description|书描述
+last_chapter|最后章节，暂时作废
+code|执行状态码，10000 为成功执行
+message|执行状态说明
+
+
 
 ## 书源
 
