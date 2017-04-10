@@ -70,6 +70,8 @@ content = RestClient.get 'https://example.com/v1/books'
 --------- | -------| ------- | -----------
 name | false| | 支持模糊查询图书名称或者作者名
 author_name|false||只查询作者名
+category_name|false||一级分类，目前先使用名称，后续再改
+sub_category_name|false||二级分类，目前先使用名称，后续再改
 page | false| 1 | 分页，当前第几页
 size|false|25|每页记录数
 
