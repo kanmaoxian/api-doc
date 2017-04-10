@@ -8,6 +8,8 @@ language_tabs:
 toc_footers:
 
 includes:
+  - token
+  - user
   - book
   - chapter
   - ranking
