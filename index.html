@@ -526,6 +526,97 @@
 </tr>
 </tbody></table>
 
+          <h1 id="part-65427f6ca4b">分类</h1>
+
+<h2 id="part-2b8cc9e1e9d730a0">分类列表</h2>
+<pre class="highlight ruby tab-ruby"><code>
+<span class="n">content</span> <span class="o">=</span> <span class="no">RestClient</span><span class="p">.</span><span class="nf">get</span> <span class="s1">'/v1/categories'</span>
+</code></pre><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"male"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"玄幻"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"东方玄幻"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"异界大陆"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"异界争霸"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"远古神话"</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"奇幻"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"西方奇幻"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"领主贵族"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"亡灵异族"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"魔法校园"</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="err">...</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"female"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"古代言情"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"穿越时空"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"古代历史"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"古典架空"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"宫闱宅斗"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"经商种田"</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"现代言情"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"豪门总裁"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"都市生活"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"婚恋情感"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"商战职场"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"异术超能"</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="err">...</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>返回一级和二级分类列表，items 为二级列表。需要注意的是，有部分分类是没有二级列表的。</p>
+
+<h3 id="part-6542ac978b5">接口</h3>
+
+<p>GET /v1/categories</p>
+
+<h3 id="part-65432e129be">返回</h3>
+
+<table><thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data</td>
+<td>数据信息</td>
+</tr>
+<tr>
+<td>meta</td>
+<td>元数据信息</td>
+</tr>
+<tr>
+<td>name</td>
+<td>一级分类名称</td>
+</tr>
+<tr>
+<td>items</td>
+<td>二级分类列表</td>
+</tr>
+</tbody></table>
+
           <h1 id="part-654296d4546">图书</h1>
 
 <h2 id="part-65428001eda">列表</h2>
@@ -607,6 +698,18 @@
 <td>false</td>
 <td></td>
 <td>只查询作者名</td>
+</tr>
+<tr>
+<td>category_name</td>
+<td>false</td>
+<td></td>
+<td>一级分类，目前先使用名称，后续再改</td>
+</tr>
+<tr>
+<td>sub_category_name</td>
+<td>false</td>
+<td></td>
+<td>二级分类，目前先使用名称，后续再改</td>
 </tr>
 <tr>
 <td>page</td>
@@ -1711,6 +1814,64 @@
 <tr>
 <td>message</td>
 <td>执行状态说明</td>
+</tr>
+</tbody></table>
+
+          <h1 id="part-6542ae8c794">搜索</h1>
+
+<h2 id="part-6542c5bfb2e">热搜</h2>
+<pre class="highlight ruby tab-ruby"><code>
+<span class="n">content</span> <span class="o">=</span> <span class="no">RestClient</span><span class="p">.</span><span class="nf">get</span> <span class="s1">'/v1/search_histories/popular'</span><span class="err">，</span> <span class="p">{</span><span class="ss">category: </span><span class="s1">'today'</span><span class="p">}</span>
+</code></pre><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"鬼吹灯"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>查看热搜关键字</p>
+
+<h3 id="part-6542ac978b5">接口</h3>
+
+<p>GET /v1/search_histories/popular</p>
+
+<h3 id="part-65428733c66">参数</h3>
+
+<table><thead>
+<tr>
+<th>名称</th>
+<th>必须</th>
+<th>默认</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>category</td>
+<td>false</td>
+<td>week</td>
+<td>搜索时间区间，支持 today, week, month, year</td>
+</tr>
+</tbody></table>
+
+<h3 id="part-65432e129be">返回</h3>
+
+<table><thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data</td>
+<td>数据信息</td>
+</tr>
+<tr>
+<td>meta</td>
+<td>元数据信息</td>
 </tr>
 </tbody></table>
 
