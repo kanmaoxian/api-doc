@@ -79,3 +79,43 @@ password|false||密码
 --------- | -------
 data|数据信息
 meta|元数据信息
+
+
+## 重置验证码
+
+
+```ruby
+
+content = RestClient.get '/v1/users/reset_code'， {code: '1234', mobile: '1891790000'}
+```
+
+```json
+
+{
+  "meta": {
+    "code": 10000,
+    "message": "Success"
+  }
+}
+```
+
+此接口仅测试可用。对于已经验证了的验证码，可用被重置再次使用。
+
+
+### 接口
+
+GET /v1/users/reset_code
+
+### 参数
+
+名称 | 必须| 默认 | 描述
+--------- | -------| ------- | -----------
+code | true|  | 验证码
+mobile | true|  | 手机号码
+
+### 返回
+
+名称 | 描述
+--------- | -------
+data|数据信息
+meta|元数据信息
