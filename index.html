@@ -223,6 +223,309 @@
       <div class="dark-box"></div>
       <div class="content">
         
+          <h1 id="part-6542ab997a7">授权</h1>
+
+<h2 id="token">获取 Token</h2>
+<pre class="highlight ruby tab-ruby"><code>
+<span class="n">content</span> <span class="o">=</span> <span class="no">RestClient</span><span class="p">.</span><span class="nf">post</span> <span class="s1">'/v1/user_token'</span><span class="err">，</span> <span class="p">{</span><span class="ss">auth: </span><span class="p">{</span><span class="ss">account: </span><span class="s1">'账号信息'</span><span class="p">,</span> <span class="ss">password: </span><span class="s1">'密码'</span><span class="p">}}</span>
+</code></pre><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE0OTE4OTQ1MzAsInN1YiI6MX0.q_6XIdrQEdymkTaXmVk7RqPfHhu_c1LVeDZREKgC9dA"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+
+  </span><span class="s2">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>API 使用了 JSON Web Token来授权，更多信息可参见：https://jwt.io/</p>
+
+<p>根据账号和密码获取Token，注意这里的参数放在 auth 节点下的。（当前使用的这个 Gem 居然 hard code了，无法配置，暂且先用着）</p>
+
+<h3 id="part-6542ac978b5">接口</h3>
+
+<p>POST /v1/user_token</p>
+
+<h3 id="part-65428733c66">参数</h3>
+
+<table><thead>
+<tr>
+<th>名称</th>
+<th>必须</th>
+<th>默认</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>auth[account]</td>
+<td>true</td>
+<td></td>
+<td>个人账号，支持手机，邮箱或者用户名</td>
+</tr>
+<tr>
+<td>auth[password]</td>
+<td>true</td>
+<td></td>
+<td>密码</td>
+</tr>
+</tbody></table>
+
+<h3 id="part-65432e129be">返回</h3>
+
+<table><thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data</td>
+<td>数据信息</td>
+</tr>
+<tr>
+<td>meta</td>
+<td>元数据信息</td>
+</tr>
+<tr>
+<td>token</td>
+<td>返回的Token</td>
+</tr>
+</tbody></table>
+
+<h2 id="part-2f150822aa349bde">验证授权</h2>
+<pre class="highlight ruby tab-ruby"><code><span class="n">curl</span> <span class="o">-</span><span class="no">X</span> <span class="no">POST</span> <span class="o">-</span><span class="no">H</span> <span class="s2">"Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE0OTE4OTQ1MzAsInN1YiI6MX0.q_6XIdrQEdymkTaXmVk7RqPfHhu_c1LVeDZREKgC9dA"</span> <span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="n">example</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">users</span><span class="o">/</span><span class="mi">1</span>
+
+<span class="err">或者</span>
+
+
+<span class="n">curl</span> <span class="o">-</span><span class="no">X</span> <span class="no">POST</span> <span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="n">example</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">users</span><span class="o">/</span><span class="mi">1</span><span class="p">?</span><span class="n">token</span><span class="o">=</span><span class="n">eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9</span><span class="p">.</span><span class="nf">eyJleHAiOjE0OTE4OTQ1MzAsInN1YiI6MX0</span><span class="p">.</span><span class="nf">q_6XIdrQEdymkTaXmVk7RqPfHhu_c1LVeDZREKgC9dA</span>
+</code></pre>
+<p>在请求受限接口时，请将返回的 Token 放置 Header 或者参数 token 中即可，推荐放在 Header 中</p>
+
+<h2 id="part-2d360934dad4dfce">测试验证</h2>
+<pre class="highlight ruby tab-ruby"><code>
+<span class="n">content</span> <span class="o">=</span> <span class="no">RestClient</span><span class="p">.</span><span class="nf">get</span> <span class="s1">'/v1/users/profile'</span><span class="err">，</span> <span class="p">{</span><span class="no">Authorization</span><span class="p">:</span> <span class="s1">'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE0OTE4OTQ1MzAsInN1YiI6MX0.q_6XIdrQEdymkTaXmVk7RqPfHhu_c1LVeDZREKgC9dA'</span><span class="p">}</span>
+</code></pre><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"mobile"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1891790000"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"sign_in_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"current_sign_in_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-04-10T16:12:19.000+08:00"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"last_sign_in_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-04-10T16:12:19.000+08:00"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>注意，此参数Authorization是放在 Header 中传递的。</p>
+
+<h3 id="part-6542ac978b5">接口</h3>
+
+<p>GET /v1/users/profile</p>
+
+          <h1 id="part-6542d8cdced">用户</h1>
+
+<h2 id="part-608e34de26965e13">发送验证码</h2>
+<pre class="highlight ruby tab-ruby"><code>
+<span class="n">content</span> <span class="o">=</span> <span class="no">RestClient</span><span class="p">.</span><span class="nf">post</span> <span class="s1">'/v1/users/send_code'</span><span class="err">，</span> <span class="p">{</span><span class="ss">mobile: </span><span class="s1">'1891790000'</span><span class="p">}</span>
+</code></pre><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="s2">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>用户在注册和找回密码之前必须通过手机验证，验证码30分钟有效。</p>
+
+<h3 id="part-6542ac978b5">接口</h3>
+
+<p>POST /v1/users/send_code</p>
+
+<h3 id="part-65428733c66">参数</h3>
+
+<table><thead>
+<tr>
+<th>名称</th>
+<th>必须</th>
+<th>默认</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>mobile</td>
+<td>true</td>
+<td></td>
+<td>手机号码</td>
+</tr>
+</tbody></table>
+
+<h3 id="part-65432e129be">返回</h3>
+
+<table><thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data</td>
+<td>数据信息</td>
+</tr>
+<tr>
+<td>meta</td>
+<td>元数据信息</td>
+</tr>
+</tbody></table>
+
+<h2 id="part-576b0aa8545bf7a8">验证并注册</h2>
+<pre class="highlight ruby tab-ruby"><code>
+<span class="n">content</span> <span class="o">=</span> <span class="no">RestClient</span><span class="p">.</span><span class="nf">post</span> <span class="s1">'/v1/users/signup'</span><span class="err">，</span> <span class="p">{</span><span class="ss">code: </span><span class="s1">'1234'</span><span class="p">,</span> <span class="ss">mobile: </span><span class="s1">'1891790000'</span><span class="p">}</span>
+</code></pre><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="s2">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>使用受到的验证码进行注册。如果手机号码已经存在，则会更新资料，其他资料目前全部可选。（偷懒将接口合并到一起了）</p>
+
+<h3 id="part-6542ac978b5">接口</h3>
+
+<p>POST /v1/users/signup</p>
+
+<h3 id="part-65428733c66">参数</h3>
+
+<table><thead>
+<tr>
+<th>名称</th>
+<th>必须</th>
+<th>默认</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>code</td>
+<td>true</td>
+<td></td>
+<td>验证码</td>
+</tr>
+<tr>
+<td>mobile</td>
+<td>true</td>
+<td></td>
+<td>手机号码</td>
+</tr>
+<tr>
+<td>email</td>
+<td>false</td>
+<td></td>
+<td>邮箱</td>
+</tr>
+<tr>
+<td>name</td>
+<td>false</td>
+<td></td>
+<td>用户名</td>
+</tr>
+<tr>
+<td>gender</td>
+<td>false</td>
+<td></td>
+<td>性别，1 =&gt; 男, 2 =&gt; 女</td>
+</tr>
+<tr>
+<td>password</td>
+<td>false</td>
+<td></td>
+<td>密码</td>
+</tr>
+</tbody></table>
+
+<h3 id="part-65432e129be">返回</h3>
+
+<table><thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data</td>
+<td>数据信息</td>
+</tr>
+<tr>
+<td>meta</td>
+<td>元数据信息</td>
+</tr>
+</tbody></table>
+
+<h2 id="part-ffd8fb17b7421a93">重置验证码</h2>
+<pre class="highlight ruby tab-ruby"><code>
+<span class="n">content</span> <span class="o">=</span> <span class="no">RestClient</span><span class="p">.</span><span class="nf">get</span> <span class="s1">'/v1/users/reset_code'</span><span class="err">，</span> <span class="p">{</span><span class="ss">code: </span><span class="s1">'1234'</span><span class="p">,</span> <span class="ss">mobile: </span><span class="s1">'1891790000'</span><span class="p">}</span>
+</code></pre><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="s2">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>此接口仅测试可用。对于已经验证了的验证码，可用被重置再次使用。</p>
+
+<h3 id="part-6542ac978b5">接口</h3>
+
+<p>GET /v1/users/reset_code</p>
+
+<h3 id="part-65428733c66">参数</h3>
+
+<table><thead>
+<tr>
+<th>名称</th>
+<th>必须</th>
+<th>默认</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>code</td>
+<td>true</td>
+<td></td>
+<td>验证码</td>
+</tr>
+<tr>
+<td>mobile</td>
+<td>true</td>
+<td></td>
+<td>手机号码</td>
+</tr>
+</tbody></table>
+
+<h3 id="part-65432e129be">返回</h3>
+
+<table><thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data</td>
+<td>数据信息</td>
+</tr>
+<tr>
+<td>meta</td>
+<td>元数据信息</td>
+</tr>
+</tbody></table>
+
           <h1 id="part-654296d4546">图书</h1>
 
 <h2 id="part-65428001eda">列表</h2>
